@@ -5,8 +5,7 @@ from random import random
 from monitor import Table, CheatMonitor
 
 NPHIL = 5
-K = 10
-
+K = 5
 
 def delay(n):
     time.sleep(random()/n)
@@ -14,8 +13,8 @@ def delay(n):
 def philosopher_task(num:int, table:Table, cheat:CheatMonitor):
     table.set_current_phil(num)
     k = 0
-    while k < K:
-        print(f"Philosopher {num} thinking")
+    while True:
+        print(f"Philosopher {num} thinking {k+1} time")
         print(f"Philosopher {num} wants to eat")
         table.wants_eat(num)
         if num == 0 or num == 2:
