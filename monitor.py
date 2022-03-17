@@ -42,7 +42,7 @@ class CheatMonitor:
     
     def wants_think(self, num:int):
         self.mutex.acquire()
-        self.other.wait_for(lambda : self.eating.value > 1)
+        self.other.wait_for(lambda : self.eating.value > 1, timeout=1)
         self.eating.value -= 1
         self.mutex.release()
 
@@ -71,7 +71,9 @@ class AnticheatTable:
         self.mutex.acquire()
         #print(f"Philosopher {num} waiting for hungry {(num+1)%self.size}")
         self.hungry[num] = True
+        
         self.chungry.wait_for(self.not_hungry)
+        
         print(f"Philosopher {num} hungry")
         self.freefork.wait_for(self.can_eat)
         self.philosophers[num] = True
